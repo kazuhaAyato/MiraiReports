@@ -4,6 +4,7 @@ import me.dreamvoid.miraimc.api.MiraiBot;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.Title;
 //  - "&f[&7STAFF&f]&a[QQ %reporter%] &f举报了 &c%reported% &f原因: %reason% &7(&f来自: &a%server% &7)"
@@ -42,7 +43,7 @@ public class publicutisl {
                     Title title = ProxyServer.getInstance().createTitle().title((new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', config.getString("title").replace("%reporter%", reporter).replace("%reported%", ReportedPlayer)))).create());
                     p.sendTitle(title);
                     p.sendTitle(titles);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', arg.replace("%reporter%", reporter).replace("%reported%", ReportedPlayer).replace("%reason%", ReportMessage).replace("%server%", ProxyServer.getInstance().getPlayer(ReportedPlayer).getServer().getInfo().getName())));
+                        p.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', arg.replace("%reporter%", reporter).replace("%reported%", ReportedPlayer).replace("%reason%", ReportMessage).replace("%server%", ProxyServer.getInstance().getPlayer(ReportedPlayer).getServer().getInfo().getName()))));
                 }
             }
         }

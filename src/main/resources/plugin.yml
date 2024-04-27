@@ -1,0 +1,13 @@
+main: com.kazuha.mireport.main
+author: Frkovo
+version: 3.0
+name: MiraiReports
+depend: [MiraiMC,LiteBans,Protocolize]
+description: well
+permissions:
+  miraireport.report:
+    default: true
+  miraireport.notify:
+    default: op
+  miraireport.admin:
+    default: op

@@ -4,6 +4,8 @@ package com.kazuha.mireport.utils;
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.nio.file.Files;
 import java.util.StringTokenizer;
 
 
@@ -30,20 +32,20 @@ public class SystemUtil {
             try {
                 File file = new File("/proc/stat");
                 BufferedReader br = new BufferedReader(new InputStreamReader(
-                        new FileInputStream(file)));
+                        Files.newInputStream(file.toPath())));
                 StringTokenizer token = new StringTokenizer(br.readLine());
                 token.nextToken();
-                long user1 = Long.parseLong(token.nextToken() + "");
-                long nice1 = Long.parseLong(token.nextToken() + "");
-                long sys1 = Long.parseLong(token.nextToken() + "");
-                long idle1 = Long.parseLong(token.nextToken() + "");
+                long user1 = Long.parseLong(token.nextToken());
+                long nice1 = Long.parseLong(token.nextToken());
+                long sys1 = Long.parseLong(token.nextToken());
+                long idle1 = Long.parseLong(token.nextToken());
 
 
                 Thread.sleep(1000);
 
 
                 br = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(file)));
+                        new InputStreamReader(Files.newInputStream(file.toPath())));
                 token = new StringTokenizer(br.readLine());
                 token.nextToken();
                 long user2 = Long.parseLong(token.nextToken());
@@ -65,12 +67,12 @@ public class SystemUtil {
     public static BigDecimal getLoad() {
         try {
             Runtime r = Runtime.getRuntime();
-            BigDecimal cpuPerformance = new BigDecimal(0.7).multiply(new BigDecimal(r.availableProcessors()));
+            BigDecimal cpuPerformance = new BigDecimal("0.7").multiply(new BigDecimal(r.availableProcessors()));
             Process pro = r.exec("uptime");
             BufferedReader br = new BufferedReader(new InputStreamReader(pro.getInputStream()));
             String topLoad = br.readLine();
             BigDecimal load = new BigDecimal(topLoad.substring(topLoad.lastIndexOf(" ")+1));
-            BigDecimal pload = new BigDecimal(100).multiply(load).divide(cpuPerformance, 0, BigDecimal.ROUND_HALF_UP);
+            BigDecimal pload = new BigDecimal(100).multiply(load).divide(cpuPerformance, 0, RoundingMode.HALF_UP);
             br.close();
             pro.destroy();
             return pload;

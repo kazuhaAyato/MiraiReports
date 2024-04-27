@@ -2,7 +2,7 @@ package com.kazuha.mireport.botcontatmodule;
 
 import com.kazuha.mireport.main;
 import me.dreamvoid.miraimc.api.MiraiBot;
-import me.dreamvoid.miraimc.bungee.event.MiraiGroupMessageEvent;
+import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -19,10 +19,10 @@ public class widgets implements Listener {
         if(e.getGroupID() != main.config.getLong("player-group-num")){
             return;
         }
-        if(e.getMessage() == main.config.getString("muteme")){
+        if(e.getMessage().equals(config.getString("muteme"))){
             Random random = new Random();
-            int bantime = random.nextInt();
-            MiraiBot.getBot(config.getLong("botaccount")).getGroup(main.config.getLong("player-group-num")).getMember(e.getSenderID()).setMute(bantime);
+            int bantime = random.nextInt(10);
+            MiraiBot.getBot(e.getBotID()).getGroup(main.config.getLong("player-group-num")).getMember(e.getSenderID()).mute(bantime);
         }
     }
 }

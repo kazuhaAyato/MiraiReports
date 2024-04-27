@@ -1,6 +1,7 @@
 package com.kazuha.mireport.playercommandmodule.ReportGui;
 
 import dev.simplix.protocolize.api.Protocolize;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.inventory.Inventory;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
@@ -11,8 +12,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class drawGui {
     public drawGui(ProxiedPlayer playerx, ProxiedPlayer target){
-        Inventory inventory = new Inventory(InventoryType.LEGACY_CHEST_9X3);
-        inventory.title("§c§l为什么举报 §n"+target.getDisplayName()+"§c§l?");
+        Inventory inventory = new Inventory(InventoryType.GENERIC_9X3);
+        inventory.title(ChatElement.ofLegacyText("§c§l为什么举报 §n"+target.getDisplayName()+"§c§l?"));
         ProtocolizePlayer player = Protocolize.playerProvider().player(playerx.getUniqueId());
         inventory.item(11,cheat());
         inventory.item(13,chat());
@@ -47,31 +48,31 @@ public class drawGui {
     }
     public ItemStack close(){
         ItemStack cheat = new ItemStack(ItemType.BARRIER);
-        cheat.displayName("§c关闭");
-        cheat.addToLore("§7===========================");
+        cheat.displayName(ChatElement.ofLegacyText("§c关闭"));
+        cheat.addToLore(ChatElement.ofLegacyText("§7==========================="));
         return cheat;
     }
     public ItemStack abuse(){
         ItemStack cheat = new ItemStack(ItemType.BOW);
-        cheat.displayName("§c滥用");
-        cheat.addToLore("§7===========================");
-        cheat.addToLore("§f恶意使用BUG 获取优势/神器");
-        cheat.addToLore("§f或RMB交易等扰乱游戏秩序的行为");
+        cheat.displayName(ChatElement.ofLegacyText("§c滥用"));
+        cheat.addToLore(ChatElement.ofLegacyText("§7==========================="));
+        cheat.addToLore(ChatElement.ofLegacyText("§f恶意使用BUG 获取优势/神器"));
+        cheat.addToLore(ChatElement.ofLegacyText("§f或RMB交易等扰乱游戏秩序的行为"));
         return cheat;
     }
     public ItemStack chat(){
         ItemStack cheat = new ItemStack(ItemType.FLINT_AND_STEEL);
-        cheat.displayName("§c言论");
-        cheat.addToLore("§7===========================");
-        cheat.addToLore("§f聊天或喊话含有");
-        cheat.addToLore("§f辱骂/扣字/宣传/违法等内容");
+        cheat.displayName(ChatElement.ofLegacyText("§c言论"));
+        cheat.addToLore(ChatElement.ofLegacyText("§7==========================="));
+        cheat.addToLore(ChatElement.ofLegacyText("§f聊天或喊话含有"));
+        cheat.addToLore(ChatElement.ofLegacyText("§f辱骂/扣字/宣传/违法等内容"));
         return cheat;
     }
     public ItemStack cheat(){
         ItemStack cheat = new ItemStack(ItemType.REDSTONE_TORCH);
-        cheat.displayName("§c作弊");
-        cheat.addToLore("§7===========================");
-        cheat.addToLore("§f做到了非正常玩家可以做到的事。");
+        cheat.displayName(ChatElement.ofLegacyText("§c作弊"));
+        cheat.addToLore(ChatElement.ofLegacyText("§7==========================="));
+        cheat.addToLore(ChatElement.ofLegacyText("§f做到了非正常玩家可以做到的事。"));
         return cheat;
     }
 }

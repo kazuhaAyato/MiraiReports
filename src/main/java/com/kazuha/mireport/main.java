@@ -6,6 +6,7 @@ import com.kazuha.mireport.botcontatmodule.widgets;
 import com.kazuha.mireport.playercommandmodule.bind;
 import com.kazuha.mireport.playercommandmodule.miraireport;
 import com.kazuha.mireport.playercommandmodule.report;
+
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -31,7 +32,7 @@ public class main extends Plugin {
         instance = this;
         saveConfigFile();
         getLogger().info("============================================");
-        getLogger().info(ChatColor.DARK_AQUA + "Mirai" + ChatColor.YELLOW + "Reports" + ChatColor.GRAY + " By " + ChatColor.AQUA + "Kazuha" + ChatColor.GOLD + "Ayato");
+        getLogger().info(ChatColor.DARK_AQUA + "Mirai" + ChatColor.YELLOW + "Reports" + ChatColor.GRAY + " By " + ChatColor.AQUA + "Frk" + ChatColor.GOLD + "ovo");
         getLogger().info("插件版本" + ChatColor.DARK_GREEN + getDescription().getVersion());
         getLogger().info("============================================");
         getLogger().info("加载配置文件..");
@@ -40,6 +41,10 @@ public class main extends Plugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        if(getProxy().getPluginManager().getPlugin("MiraiMC") == null){
+//            getLogger().info("MiraiMC Missing. Plugin will exit");
+//
+//        }
         jdbc_plugin_url = "jdbc:mysql://"+config.getString("plugin-db.url")+"/"+config.getString("plugin-db.db");
         try {
             Connection connection = DriverManager.getConnection(jdbc_plugin_url,config.getString("plugin-db.username"),config.getString("plugin-db.password"));
@@ -50,16 +55,22 @@ public class main extends Plugin {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        getLogger().info("注册监听器");
         getProxy().getPluginManager().registerListener(this, new unban());
         getProxy().getPluginManager().registerCommand(this, new bind("qq"));
         getProxy().getPluginManager().registerCommand(this, new report("report"));
         getProxy().getPluginManager().registerListener(this, new widgets());
         getProxy().getPluginManager().registerCommand(this, new miraireport("miraireport"));
         getProxy().getPluginManager().registerListener(this, new RecievePlayerReport());
+        getProxy().getPluginManager().registerListener(this, new Beat());
         getLogger().info("加载完成！");
     }
     @Override
     public void onDisable(){
+                getLogger().info("正在卸载");
+        getProxy().getPluginManager().unregisterCommands(this);
+        getProxy().getPluginManager().unregisterListeners(this);
+                getLogger().info("卸载成功！");
     }
     public void saveConfigFile() {
         File dir = getDataFolder();
